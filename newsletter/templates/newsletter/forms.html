@@ -3,14 +3,11 @@
     {{ title }}
 {% endblock %}
 {% block content %}
-    Welcome {{ user }}, this is Home page of Danamon Site !!!
-    <br>
-    {{ request.user }}
-
-
+    <h2>Contact Us</h2>
     <form method="post" action="">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Sign Up now!">
+        <input type="submit" value="Submit">
     </form>
+
 {% endblock %}
