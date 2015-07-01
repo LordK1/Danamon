@@ -113,11 +113,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# store site-specific media here.
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 )
+
+# this folder is used to collect static files in production. not used in development
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 # Media
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# Dynamic content is saved to here
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
