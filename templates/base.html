@@ -2,16 +2,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Danamon - {% block title %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description"
+          content="this is sample of using Python, Django and Bootstrap on the site created via following youtube channle !   ">
+    <meta name="author" content="LordK1">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
 
-    {% endblock %}</title>
+
+    <title>Danamon - {% block title %}{% endblock %}</title>
+
+    {% include 'head_css.html' %}
+
+    <style>
+        {% block styles %}
+
+        {% endblock styles %}
+    </style>
+
 </head>
+
 <body>
-<h1>Hi there !!!</h1>
+<!-- Navbar -->
+{% include 'navbar.html' %}
+<div class="container">
+    <!-- Jumbotrun -->
+    {% block jumbotrun %}
 
-{% block content %}
+    {% endblock jumbotrun %}
 
-{% endblock %}
+
+    <!-- Content -->
+    {% block content %}
+    {% endblock content %}
+</div>
+<!-- /container-fluid -->
+
+
 </body>
 </html>

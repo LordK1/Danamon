@@ -42,13 +42,20 @@ https://accounts.google.com/displayunlockcaptcha
 # Application definition
 
 INSTALLED_APPS = (
+    # django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # third party apps
+    'crispy_forms',
+    'registration',
+    # my apps
     'newsletter',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,3 +133,10 @@ MEDIA_URL = '/media/'
 
 # Dynamic content is saved to here
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# CrispyForms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# Django Registration Redux settings
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True

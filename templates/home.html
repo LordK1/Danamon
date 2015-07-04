@@ -1,16 +1,59 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 {% block title %}
+    {{ block.super }}
     {{ title }}
 {% endblock %}
+<style>
+    {% block styles %}
+    {% endblock %}
+</style>
+{% block jumbotrun %}
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <h1>Wellcome {{ user }}, to Danamon Site !</h1>
+
+                <p>The Dnamon Site project, is designed to get your project started. The goal is to help you lunche as
+                    soo
+                    as
+                    possible with latest amount of investment using time or money. Join Us today &amp; lets get started
+                    !!!</p>
+
+                <p>
+                    <a class="btn btn-lg btn-primary" href="" role="button">Join Us &raquo;</a>
+                </p>
+            </div>
+            <div class="col-sm-6" style="background-color: #0f0f0f;height: 300px;">
+
+            </div>
+        </div>
+    </div>
+{% endblock jumbotrun %}
+
 {% block content %}
-    Welcome {{ user }}, this is Home page of Danamon Site !!!
-    <br>
-    {{ request.user }}
+    <div class="row">
 
+        <div class="col-sm-3 pull-right">
+            <p class="lead text-align-center">{{ title }}</p>
 
-    <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Sign Up now!">
-    </form>
-{% endblock %}
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input class="btn btn-primary" type="submit" value="Sign Up now!">
+            </form>
+        </div>
+        <div class="col-sm-3">
+            <p class="lead text-align-center">Built with Python, Django, Bootstrap !!!</p>
+        </div>
+        <div class="col-sm-3">
+            <p class="lead text-align-center">Created for all kind of starts !!!</p>
+        </div>
+        <div class="col-sm-3">
+            <p class="lead text-align-center">Always be Open Source !!!</p>
+        </div>
+    </div>
+{% endblock content %}

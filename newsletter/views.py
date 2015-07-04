@@ -42,6 +42,7 @@ def contact(request):
     context = {
         'title': 'Contact Us',
         'form': form,
+        'title_align_center': True
     }
 
     if form.is_valid():
