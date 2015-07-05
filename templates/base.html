@@ -27,19 +27,19 @@
 <body>
 <!-- Navbar -->
 {% include 'navbar.html' %}
+
+<!-- Jumbotrun -->
+{% block jumbotrun %}
+
+{% endblock jumbotrun %}
 <div class="container">
-    <!-- Jumbotrun -->
-    {% block jumbotrun %}
-
-    {% endblock jumbotrun %}
-
-
     <!-- Content -->
     {% block content %}
     {% endblock content %}
 </div>
-<!-- /container-fluid -->
 
+<!-- scripts -->
+{% include 'javascript.html' %}
 
 </body>
 </html>

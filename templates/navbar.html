@@ -16,25 +16,29 @@
                 <li><a href="{% url 'home' %}">Home</a></li>
                 <li><a href="{% url 'about' %}">About</a></li>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="../navbar/">Default</a></li>
-                <li class="active"><a href="./">Static top <span class="sr-only">(current)</span></a></li>
-                <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href='{% url "auth_logout" %}'>Logout {{ request.user }} - {{ user }}</a></li>
+                {% else %}
+                    <li><a href='{% url "registration_register" %}'>Register</a></li>
+                {% endif %}
             </ul>
+
+            <!-- Login Form -->
+            {% if not request.user.is_authenticated and not "/accounts/login/" in request.get_full_path %}
+                <form class="navbar-form navbar-right" method="post" action='{% url "auth_login" %}'
+                      role="search"> {% csrf_token %}
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="username" placeholder="Username"/>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="password" name="password" placeholder="Password"/>
+                    </div>
+                    <button class="btn btn-default">Login</button>
+                </form>
+            {% endif %}
         </div>
         <!--/.nav-collapse -->
     </div>

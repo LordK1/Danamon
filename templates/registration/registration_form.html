@@ -1,11 +1,22 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
+    <div class="col-sm-6 col-sm-offset-3">
+        <h1 class="text-align-center">Register Now</h1>
 
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{ form | crispy }}
+
+            <input class="btn btn-primary" type="submit" value="{% trans 'Submit' %}"/>
+        </form>
+        <hr>
+
+        <p class="lead text-align-center">if you registered before you can
+            <a href="{% url 'auth_login' %}" class="btn-link">Login !!!</a>
+        </p>
+
+    </div>
+
 {% endblock %}
