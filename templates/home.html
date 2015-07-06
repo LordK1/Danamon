@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load staticfiles crispy_forms_tags %}
 
 {% block title %}
     {{ block.super }}
@@ -14,57 +14,119 @@
             background-color: #009164;
             color: whitesmoke;
         }
+        .even {
+            background-color: #aeaeae;
+        }
+        .odd {
+            background-color: whitesmoke;
+        }
     {% endblock %}
 </style>
 {% block jumbotrun %}
     <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    {% if request.user.is_authenticated %}
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1>Wellcome {{ user }}, to Danamon Site !</h1>
+    {% else %}
+        <div class="jumbotron">
 
-                    <p>The Dnamon Site project, is designed to get your project started. The goal is to help you lunche
-                        as
-                        soo
-                        as
-                        possible with latest amount of investment using time or money. Join Us today &amp; lets get
-                        started
-                        !!!</p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {% if request.user.is_authenticated %}
+                            <h1>Wellcome {{ user }}, to Danamon Site !</h1>
+                        {% else %}
+                            <h1>Wellcome, to Danamon Site !</h1>
+                        {% endif %}
 
-                    <p>
-                        <a class="btn btn-lg btn-primary" href="" role="button">Join Us &raquo;</a>
-                    </p>
-                </div>
-                <div class="col-sm-6" style="background-color: #0f0f0f;height: 300px;">
 
+                        <p>The Dnamon Site project, is designed to get your project started. The goal is to help you
+                            lunch as soon aspossible with latest amount of investment using time or money. Join Us today
+                            &amp; lets get started!!!
+                        </p>
+
+                        <p>
+                            <a class="btn btn-lg btn-primary" href="" role="button">Join Us &raquo;</a>
+                        </p>
+                    </div>
+                    <div class="col-sm-6">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/4OlGpS2LG_M" frameborder="0"
+                                allowfullscreen></iframe>
+                        {#                    <img class="img-responsive" src="{% static 'img/logo.png' %}">#}
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock jumbotrun %}
 
 {% block content %}
-    <div class="row">
+    {#  Check user is Logged in   #}
+    {% if request.user.is_authenticated %}
+        <h1>Your logged in as {{ request.user.username }}</h1>
+        {% if queryset %}
+            <h2>Welcome Staff !!!!</h2>
+            {% comment %}{{ queryset }}{% endcomment %}
+            <table class="table">
+                {% for instance in queryset %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        <tr class="odd">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ instance.full_name }}</td>
+                            <td>{{ instance.email }}</td>
+                            <td>{{ instance.timestamp | timesince }} ago</td>
+                            {% else %}
+                        <tr class="even">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ instance.full_name }}</td>
+                        <td>{{ instance.email }}</td>
+                        <td>{{ instance.timestamp | timesince }} ago</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
 
-        <div class="col-sm-3 pull-right">
-            <p class="lead text-align-center">{{ title }}</p>
+    {% else %}
+        <div class="row">
 
-            <form method="post" action="">
-                {% csrf_token %}
-                {{ form | crispy }}
-                <input class="btn btn-primary" type="submit" value="Sign Up now!">
-            </form>
+            <div class="col-sm-3 pull-right">
+                <p class="lead text-align-center">{{ title }}</p>
+
+                <form method="post" action="">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <input class="btn btn-primary" type="submit" value="Sign Up now!">
+                </form>
+            </div>
+            <div class="col-sm-3">
+                <p class="lead text-align-center">Django &amp; Bootstrap !!!
+                    <br/>
+                <span class="fa-stack fa-lg fa-5x">
+                    <i class="fa fa-comment-o fa-stack-2x"></i>
+                    <i class="fa fa-bolt fa-stack-1x"></i>
+            </span>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <p class="lead text-align-center">Created for Starters !!!
+                    <br/>
+                <span class="fa-stack fa-lg fa-5x">
+
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-twitter fa-stack-1x"></i>
+            </span>
+                </p>
+            </div>
+            <div class="col-sm-3">
+                <p class="lead text-align-center">Always be Open Source !!!
+                    <br/>
+            <span class="fa-stack fa-lg fa-5x">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+                </p>
+            </div>
         </div>
-        <div class="col-sm-3">
-            <p class="lead text-align-center">Built with Python, Django, Bootstrap !!!</p>
-        </div>
-        <div class="col-sm-3">
-            <p class="lead text-align-center">Created for all kind of starts !!!</p>
-        </div>
-        <div class="col-sm-3">
-            <p class="lead text-align-center">Always be Open Source !!!</p>
-        </div>
-    </div>
+    {% endif %}
 {% endblock content %}

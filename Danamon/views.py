@@ -4,4 +4,7 @@ __author__ = 'k1'
 
 
 def about(request):
-    return render(request, "about.html", {})
+    context = {
+        'title': 'About Us'
+    }
+    return render(request, "about.html", context)

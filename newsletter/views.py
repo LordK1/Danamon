@@ -5,17 +5,14 @@ from django.shortcuts import render, render_to_response
 # Create your views here.
 from Danamon import settings
 from newsletter.forms import SignUpForm, ContactForm
+from newsletter.models import SignUp
 
 
 def home(request):
-    title = "wellcome"
-    if request.user.is_authenticated():
-        title = "My Title %s " % (request.user)
-
     form = SignUpForm(request.POST or None)
 
     context = {
-        'title': "home of %s" % title,
+        'title': "Sign Up",
         'form': form
     }
 
@@ -32,6 +29,16 @@ def home(request):
         instance.save()
         context = {
             'title': "thank you %s" % instance.full_name
+        }
+
+    if request.user.is_authenticated() and request.user.is_staff:
+        # print(SignUp.objects.all())
+        for instance in SignUp.objects.all():
+            print(instance.full_name)
+
+        queryset = SignUp.objects.all().order_by('-timestamp')#.filter(full_name__iexact='keyvan')
+        context = {
+            "queryset": queryset
         }
 
     return render(request, "home.html", context)
